@@ -1,0 +1,30 @@
+.entireAmenities{
+border-style: solid;
+padding: 10px;
+display: inline;
+font-family: 'Montserrat', sans-serif;
+display: flex;
+flex-wrap: nowrap;
+width: 600px;
+
+}
+
+.amenities{
+width: 150px;
+align-items: center;
+text-align: center;
+height: 240px;
+}
+
+.iconAmenities{
+height: 50px;
+}
+
+.numberAmenities{
+font-size: 60px;
+padding-top: -50px;
+}
+
+.pAmenities {
+    font-size: 16px;
+}
