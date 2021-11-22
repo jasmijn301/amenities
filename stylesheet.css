@@ -5,26 +5,37 @@ display: inline;
 font-family: 'Montserrat', sans-serif;
 display: flex;
 flex-wrap: nowrap;
-width: 600px;
+width: 800px;
 
 }
 
 .amenities{
-width: 150px;
+width: 200px;
 align-items: center;
 text-align: center;
-height: 240px;
+height: auto;
 }
 
 .iconAmenities{
-height: 50px;
+height: 80px;
+display: block;
+align-content: center;
+margin-bottom: 20px;
+margin-left: auto;
+margin-right: auto;
 }
 
 .numberAmenities{
 font-size: 60px;
 padding-top: -50px;
+display: inline;
 }
 
 .pAmenities {
     font-size: 16px;
+}
+
+.numberTotal {
+    font-size: 12px;
+    display: inline;
 }
