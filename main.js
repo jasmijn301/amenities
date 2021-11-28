@@ -34,78 +34,66 @@ axios.get('https://opendata.cbs.nl/ODataApi/odata/84799NED/UntypedDataSet?$filte
 ratingNeighbourhood();
 
 async function ratingNeighbourhood() {
+    //Calculate the total crime rate from a certain neighbourhood
     const dataCrimeIrisbuurt = await fetch('crimiIrisbuurt.csv');
-    const dataSafety = await dataCrimeIrisbuurt.text();
+    const dataSafetyIrisbuurt = await dataCrimeIrisbuurt.text();
 
-    const table = dataSafety.split('\n');
+    let countIrisbuurt = 0;
+    const tableIrisbuurt = dataSafetyIrisbuurt.split('\n');
 
-    table.forEach(row => {
-        const columns = row.split(';');
+    tableIrisbuurt.forEach(rowIrisbuurt => {
+        const columnsIrisbuurt = rowIrisbuurt.split(';');
 
-        const numbers = columns[1];
+        const numbersIrisbuurt = columnsIrisbuurt[1];
 
-        console.log(numbers);
+        countIrisbuurt = countIrisbuurt + parseFloat(numbersIrisbuurt);
     })
 
-    // const crimeTotalIrisbuurt = number1 + number2 + number 3;
-    // if (crimeTotalIrisbuurt > 60 ) {
-    //     document.getElementById("safetyRating").innerHTML = "1";
-    // }
-    // else if (crimeTotalIrisbuurt > 48 && crimeTotalIrisbuurt =< 54 ) {
-    //     document.getElementById("safetyRating").innerHTML = "2";
-    // }
-    // else if (crimeTotalIrisbuurt > 42 && crimeTotalIrisbuurt =< 48 ) {
-    //     document.getElementById("safetyRating").innerHTML = "3";
-    // }
-    // else if (crimeTotalIrisbuurt > 36 && crimeTotalIrisbuurt =< 42 ) {
-    //     document.getElementById("safetyRating").innerHTML = "4";
-    // }
-    // else if (crimeTotalIrisbuurt > 30 && crimeTotalIrisbuurt =< 36 ) {
-    //     document.getElementById("safetyRating").innerHTML = "5";
-    // }
-    // else if (crimeTotalIrisbuurt > 24 && crimeTotalIrisbuurt =< 30 ) {
-    //     document.getElementById("safetyRating").innerHTML = "6";
-    // }
-    // else if (crimeTotalIrisbuurt > 18 && crimeTotalIrisbuurt =< 24 ) {
-    //     document.getElementById("safetyRating").innerHTML = "7";
-    // }
-    // else if (crimeTotalIrisbuurt > 12 && crimeTotalIrisbuurt =< 18 ) {
-    //     document.getElementById("safetyRating").innerHTML = "8";
-    // }
-    // else if (crimeTotalIrisbuurt > 6 && crimeTotalIrisbuurt =< 12 ) {
-    //     document.getElementById("safetyRating").innerHTML = "9";
-    // }
-    // else {
-    //     document.getElementById("safetyRating").innerHTML = "10";
-    // }
- 
+    const crimeTotalIrisbuurt = countIrisbuurt.toFixed(1);
 
 
-    
-// console.log(dataSafety);
-// console.log(table);
+    //Calculate the total crime rate from Eindhoven
+    const dataCrimeEindhoven = await fetch("crimiEindhoven.csv");
+    const dataSafetyEindhoven = await dataCrimeEindhoven.text();
+
+    let countEindhoven = 0;
+    const tableEindhoven = dataSafetyEindhoven.split("\n");
+
+    tableEindhoven.forEach(rowEindhoven => {
+        const columnsEindhoven = rowEindhoven.split(";");
+
+        const numbersEindhoven = columnsEindhoven[1];
+
+        countEindhoven = countEindhoven + parseFloat(numbersEindhoven)
+    })
+
+    const crimeTotalEindhoven = countEindhoven.toFixed(1);
 
 
+    //Calculate what rating the neighbourhood gets if Eindhoven were a 5.5
+    const crimeRatingAmount = crimeTotalEindhoven / 11
 
-
-
-// const dataCrimeEindhoven = await fetch("crimiEindhoven.csv");
-// const dataSafetyEindhoven = await dataCrimeEindhoven.text();
-// const tableEindhoven = dataSafetyEindhoven.split("\n");
-// tableEindhoven.forEach(rowEindhoven => {
-//     const columnsEindhoven = rowEindhoven.split(";");
-//     const numbersEindhoven = columnsEindhoven[1];
-// })
-
-// const crimeTotalEindhoven = number1 + number2 + number 3;
-
-// const crimeRatingAmount = crimeTotalEindhoven / 11
-
-// if (crimeTotalIrisbuurt < crimeRatingAmount && crimeTotalIrisbuurt => 0) {
-//     document.getElementById("safetyRating").innerHTML = "10";
-// } else if (crimeTotalIrisbuurt < crimeRatingAmount * 2 && crimeTotalIrisbuurt => crimeRatingAmount) {
-//     document.getElementById("safetyRating").innerHTML = "9";
-// }
+    if (crimeTotalIrisbuurt <= crimeRatingAmount && crimeTotalIrisbuurt >= 0) {
+        document.getElementById("safetyRating").innerHTML = "10";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 3 && crimeTotalIrisbuurt > crimeRatingAmount) {
+        document.getElementById("safetyRating").innerHTML = "9";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 5 && crimeTotalIrisbuurt > crimeRatingAmount * 3) {
+        document.getElementById("safetyRating").innerHTML = "8";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 7 && crimeTotalIrisbuurt > crimeRatingAmount * 5) {
+        document.getElementById("safetyRating").innerHTML = "7";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 9 && crimeTotalIrisbuurt > crimeRatingAmount * 7) {
+        document.getElementById("safetyRating").innerHTML = "6";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 11 && crimeTotalIrisbuurt > crimeRatingAmount * 9) {
+        document.getElementById("safetyRating").innerHTML = "5";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 13 && crimeTotalIrisbuurt > crimeRatingAmount * 11) {
+        document.getElementById("safetyRating").innerHTML = "4";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 15 && crimeTotalIrisbuurt > crimeRatingAmount * 13) {
+        document.getElementById("safetyRating").innerHTML = "3";
+    } else if (crimeTotalIrisbuurt <= crimeRatingAmount * 17 && crimeTotalIrisbuurt > crimeRatingAmount * 15) {
+        document.getElementById("safetyRating").innerHTML = "2";
+    } else {
+        document.getElementById("safetyRating").innerHTML = "1";
+    }
 
 
 };
